@@ -12,3 +12,5 @@ class PokemonList(APIView):
             queryset = queryset.filter(name__contains=s_query)
         serializer = PokemonSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    def post()

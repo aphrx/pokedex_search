@@ -10,7 +10,6 @@ export default function HomePage() {
         fetch('http://localhost:8000/api/pokemon')
             .then(res => res.json())
             .then(data => setPokemon(data))
-            .then(console.log("hi"))
     }, [])
 
     return (
@@ -23,7 +22,7 @@ export default function HomePage() {
                     </center>
                 </Grid>
                 {pokemon.map(pokemon => (
-                    <Grid item xs={12} sm={6} md={2}>
+                    <Grid item xs={12} sm={4} md={4} lg={3}>
                         <PokemonCard pokemon={pokemon} />
                     </Grid>
                 ))}

@@ -45,12 +45,9 @@ export default function Searchbar() {
           body: JSON.stringify({ 'url': url })
       };
       fetch('http://127.0.0.1:8000/api/pokemon/', requestOptions)
-          .then(response => response.json());
+          .then(response => console.log(response.json()));
       })})
-
-    
   }
-
 
   return (
     <Paper component="form" className={classes.root}>

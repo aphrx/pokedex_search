@@ -10,7 +10,7 @@ class PokemonList(APIView):
         pokemons = Pokemon.objects.all()
         query = self.request.GET.get('search')
         if query is not None:
-            pokemons = pokemons.filter(name__contains=s_query)
+            pokemons = pokemons.filter(name__contains=query)
         serializer = PokemonSerializer(pokemons, many=True)
         return Response(serializer.data)
 
@@ -25,7 +25,12 @@ class PokemonList(APIView):
             url = serializer.data.get("url")
             print(url)
             m = Model(url)
-            m.execute()
-            return Response({'Loading'}, status=status.HTTP_201_CREATED)
+            m.load_img(url)
+            sc = m.execute()
+            print(sc)
+            pokemons = Pokemon.objects.raw('SELECT * FROM api_pokemon ORDER BY name LIMIT 1 OFFSET %s', [str(sc)])
+            print(pokemons)
+            serializer = PokemonSerializer(pokemons, many=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
     

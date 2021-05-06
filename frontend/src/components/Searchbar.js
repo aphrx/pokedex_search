@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/CameraAlt';
 import SearchIcon from '@material-ui/icons/Search';
-import { storage } from '../firebase/config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,36 +28,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Searchbar() {
+export default function Searchbar(props) {
   const classes = useStyles();
+  const [search, setSearch] = useState('')
   
-  const onChange = (e) => {
-    const file = e.target.files[0];
-    const storageRef = storage.ref()
-    const fileRef = storageRef.child(file.name)
-    fileRef.put(file).then(snapshot => {
-      snapshot.ref.getDownloadURL().then(url => {
-        console.log('URL:', url)
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ 'url': url })
-      };
-      fetch('http://127.0.0.1:8000/api/pokemon/', requestOptions)
-          .then(response => console.log(response.json()));
-      })})
-  }
-
   return (
     <Paper component="form" className={classes.root}>
       <InputBase
         className={classes.input}
         placeholder="Search"
         inputProps={{ 'aria-label': 'search google maps' }}
+        onChange={(e) => {setSearch(e.target.value); props.handleSearchChange(search)}}
       />
       
       
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
+      <IconButton type="submit" onClick={(e) => {e.preventDefault(); }} className={classes.iconButton} aria-label="search">
         <SearchIcon />
       </IconButton>
       <Divider className={classes.divider} orientation="vertical" />
@@ -66,7 +50,7 @@ export default function Searchbar() {
         accept="image/*"
         className={classes.input}
         id="icon-button-photo"
-        onChange={onChange}
+        onChange={(e) => props.handleChange(e)}
         type="file"
         hidden
     />

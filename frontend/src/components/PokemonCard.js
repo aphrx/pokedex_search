@@ -34,7 +34,7 @@ export default function PokemonCard({ pokemon }) {
 
   useEffect(() => {
     const storageRef = storage.ref()
-    const fileRef = storageRef.child('pokemon').child(`${Capitalize(pokemon.name)}.gif`).getDownloadURL().then((url) => {
+    storageRef.child('pokemon').child(`${Capitalize(pokemon.name)}.gif`).getDownloadURL().then((url) => {
       setImage(url)
       console.log(url)
     })

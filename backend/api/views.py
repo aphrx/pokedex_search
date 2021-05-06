@@ -11,6 +11,15 @@ class PokemonList(APIView):
         query = self.request.GET.get('search')
         if query is not None:
             pokemons = pokemons.filter(name__contains=query)
+        serializer = PokemonSerializer(pokemons[:20], many=True)
+        return Response(serializer.data)
+
+class PokemonSearch(APIView):
+    def get(self, request):
+        pokemons = Pokemon.objects.all()
+        query = self.request.GET.get('query')
+        if query is not None:
+            pokemons = pokemons.filter(name__contains=query)[:20]
         serializer = PokemonSerializer(pokemons, many=True)
         return Response(serializer.data)
 

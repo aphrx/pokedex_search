@@ -13,8 +13,7 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div>
-            
+        <div>   
             <Grid container>
                 <Grid item xs={12} md={12}>
                     <center>
@@ -22,7 +21,7 @@ export default function HomePage() {
                     </center>
                 </Grid>
                 {pokemon.map(pokemon => (
-                    <Grid item xs={12} sm={4} md={4} lg={3}>
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
                         <PokemonCard pokemon={pokemon} />
                     </Grid>
                 ))}

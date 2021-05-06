@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import PhotoCamera from '@material-ui/icons/CameraAlt';
 import SearchIcon from '@material-ui/icons/Search';
 import { storage } from '../firebase/config';
 
@@ -36,7 +36,18 @@ export default function Searchbar() {
     const file = e.target.files[0];
     const storageRef = storage.ref()
     const fileRef = storageRef.child(file.name)
-    fileRef.put(file).then(()=> {console.log("Uploaded file")})
+    fileRef.put(file).then(snapshot => {
+      snapshot.ref.getDownloadURL().then(url => {
+        console.log('URL:', url)
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ 'url': url })
+      };
+      fetch('http://127.0.0.1:8000/api/pokemon/', requestOptions)
+          .then(response => response.json());
+      })})
+
     
   }
 
@@ -48,15 +59,25 @@ export default function Searchbar() {
         placeholder="Search"
         inputProps={{ 'aria-label': 'search google maps' }}
       />
-      <input type="file" onChange={onChange}/>
+      
       
       <IconButton type="submit" className={classes.iconButton} aria-label="search">
         <SearchIcon />
       </IconButton>
       <Divider className={classes.divider} orientation="vertical" />
-      <IconButton color="secondary" className={classes.iconButton} aria-label="directions">
-        <CameraAltIcon />
-      </IconButton>
+      <input
+        accept="image/*"
+        className={classes.input}
+        id="icon-button-photo"
+        onChange={onChange}
+        type="file"
+        hidden
+    />
+    <label htmlFor="icon-button-photo">
+        <IconButton color="secondary" component="span">
+            <PhotoCamera />
+        </IconButton>
+    </label>
     </Paper>
   );
 }

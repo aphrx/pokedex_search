@@ -18,7 +18,7 @@ for i in range(1, 152):
     if len(pokemon['types']) == 2:
         t2 = str(pokemon['types'][1]['type']['name']).capitalize()
 
-    desc = str(desc_req['flavor_text_entries'][0]['flavor_text']).replace('\n', ' ').replace('\f', ' ')
+    desc = str(desc_req['flavor_text_entries'][0]['flavor_text']).replace('\n', ' ').replace('\f', ' ').replace('POKéMON', 'Pokémon')
     stats = []
     for j in range(6):
         stats.append(pokemon['stats'][j]['base_stat'])

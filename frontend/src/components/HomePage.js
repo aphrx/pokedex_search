@@ -9,7 +9,6 @@ import Hero from './Cards/HeroCard';
 function slice(arr) {
     const newArr = [];
     while(arr.length) newArr.push(arr.splice(0,20));
-    console.log(newArr);
     return newArr
 }
 
@@ -90,7 +89,7 @@ export default function HomePage() {
                 
                 
                 <Grid item xs={12} container justify = "center">
-                    <Pagination count={pokemon.length} page={page} onChange={handleChangePage} color="secondary" />
+                    <Pagination count={pokemon.length} page={page} onChange={handleChangePage} color="secondary" style={{margin: 20}}/>
                 </Grid>
             </Grid>
 

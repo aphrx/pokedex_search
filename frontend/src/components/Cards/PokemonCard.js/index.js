@@ -79,7 +79,7 @@ export default function PokemonCard({ handleClick, pokemon }) {
           </Grid>
           <Grid item xs={12} md={4}>
             <center>
-              <img height={80} src={image}/>
+              <img height={80} src={image} style={{display: 'inline-block'}}/>
             </center>
           </Grid>    
         </Grid>

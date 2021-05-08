@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
+
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { storage } from '../../../firebase/config';
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
       pos: {
         marginBottom: 12,
       },
+
 }));
 
 
@@ -66,7 +69,7 @@ function percent(num){
   return (
     <Card className={classes.root} style={{backgroundColor:colors[pokemon.type1]}}>
       <CardContent>
-        <Grid container>
+        <Grid container justify = "center">
           <Grid item xs={12} md={4}>
             <PokemonName>
               {pokemon.name}
@@ -80,13 +83,18 @@ function percent(num){
             
           </Grid>
           <Grid xs={12} md={4}>
-          <Progress skill={"HP"} dur={pokemon.hp} percent={percent(pokemon.hp) + '%'}/>
+          <Box
+        display="column"
+        alignItems="center"
+        flexDirection="column"
+         style={{backgroundColor: 'blue',height:'100%', }}>
+            <Progress skill={"HP"} dur={pokemon.hp} percent={percent(pokemon.hp) + '%'}/>
             <Progress skill={"ATK"} dur={pokemon.atk} percent={percent(pokemon.atk) + '%'}/>
             <Progress skill={"DEF"} dur={pokemon.df} percent={percent(pokemon.df) + '%'}/>
             <Progress skill={"SPA"} dur={pokemon.spa} percent={percent(pokemon.spa) + '%'}/>
             <Progress skill={"SPD"} dur={pokemon.spd} percent={percent(pokemon.spd) + '%'}/>
             <Progress skill={"SPE"} dur={pokemon.spe} percent={percent(pokemon.spe) + '%'}/>
-          
+          </Box>
           </Grid>
           <Grid item xs={12} md={4}>
             <center>

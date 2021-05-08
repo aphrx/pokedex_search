@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -30,15 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Searchbar(props) {
   const classes = useStyles();
-  const [search, setSearch] = useState('')
   
   return (
     <Paper component="form" className={classes.root}>
       <InputBase
         className={classes.input}
         placeholder="Search"
-        inputProps={{ 'aria-label': 'search google maps' }}
-        onChange={(e) => {setSearch(e.target.value); props.handleSearchChange(search)}}
+        onChange={(e) => {props.handleSearchChange(e.target.value)}}
       />
       
       

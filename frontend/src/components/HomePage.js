@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import PokemonCard from './PokemonCard';
+import PokemonCard from './Cards/PokemonCard.js';
 import Grid from '@material-ui/core/Grid';
 import Searchbar from './Searchbar';
 import { storage } from '../firebase/config';
+import Pagination from '@material-ui/lab/Pagination';
+import Hero from './Cards/HeroCard';
+
+function slice(arr) {
+    const newArr = [];
+    while(arr.length) newArr.push(arr.splice(0,20));
+    console.log(newArr);
+    return newArr
+}
 
 
 export default function HomePage() {
-    const [pokemon, setPokemon] = useState([])
-
+    const [pokemon, setPokemon] = useState([[]])
+    const [page, setPage] = useState(1)
+    const [hero, setHero] = useState(null)
+    
     useEffect(() => {
-        fetchData("")
+        fetchData()
     }, [])
 
     const fetchData = (data) => {
+        
+        if(data == null){
+            data = ""
+        }
         let url = 'http://localhost:8000/api/pokemon?search='
 
         fetch(url + data)
         .then(res => res.json())
-        .then(data => setPokemon(data))
+        .then(data => setPokemon(slice(data)))
     }
 
-    const handleSearchChange = (query) => {
-        console.log(query);
-        fetchData(query)
+    const handleChangePage = (event, newPage) => setPage(newPage);
+
+    const handleSearchChange = (query) => fetchData(query);
+
+    const handleClick = (pokemon) => {
+        setHero(pokemon)
+        window.scrollTo(0, 0)
     }
 
     const handleChange = (e) => {
@@ -54,11 +73,25 @@ export default function HomePage() {
                         <Searchbar handleChange={handleChange} handleSearchChange={handleSearchChange}/>
                     </center>
                 </Grid>
-                {pokemon.map(pokemon => (
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-                    </Grid>
-                ))}
+                {hero != null ? (
+                        <Grid item xs={12}>
+                            <Hero pokemon={hero} />
+                        </Grid>
+                ):<></>}
+                
+                {
+                    pokemon[page-1].map(pokemon => (
+                        <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <PokemonCard key={pokemon.id} pokemon={pokemon} handleClick={handleClick} />
+                        </Grid>
+                    ))
+                }
+                
+                
+                
+                <Grid item xs={12} container justify = "center">
+                    <Pagination count={pokemon.length} page={page} onChange={handleChangePage} color="secondary" />
+                </Grid>
             </Grid>
 
         </div>

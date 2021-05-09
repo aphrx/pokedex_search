@@ -35,6 +35,7 @@ function percent(num){
               <PokemonType>
                   {(pokemon.type2 != null) ? pokemon.type1 + "/" + pokemon.type2 : pokemon.type1}
               </PokemonType>
+              <br/>
                 <PokemonDesc >
                     {pokemon.desc}
                 </PokemonDesc>

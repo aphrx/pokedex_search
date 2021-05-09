@@ -3,7 +3,7 @@ import numpy as np
 
 from tensorflow import keras
 
-model = keras.models.load_model('model_2.h5')
+model = keras.models.load_model('model.h5')
 
 img = keras.preprocessing.image.load_img(
     'snorlax.jpg', target_size=(200, 200)

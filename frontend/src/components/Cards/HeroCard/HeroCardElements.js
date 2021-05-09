@@ -16,12 +16,10 @@ export const PokemonDesc = styled.p`
     color: #000;
     font-size: 20px;
     text-align: left;
-    overflowWrap: break-word;
 `;
 
 export const PokemonType = styled.p`
     color: #000;
     font-size: 18px;
     text-align: left;
-    overflowWrap: break-word;
 `;

@@ -17,15 +17,9 @@ class Model:
         img = img.convert('RGB')
         img = img.resize((200,200), Image.NEAREST)
         self.img = keras.preprocessing.image.img_to_array(img)
-        print('loaded img')
     
     def execute(self):
-        print("starting exec")
         img_array = tf.expand_dims(self.img, 0) # Create a batch
         predictions = self.model.predict(img_array)
         score = tf.nn.softmax(predictions[0])
-        print(
-            "This image most likely belongs to {} with a {:.2f} percent confidence."
-            .format(np.argmax(score), 100 * np.max(score))
-        )
         return np.argmax(score)

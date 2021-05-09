@@ -117,3 +117,6 @@ dist
 
 # Dataset
 data/
+
+# Virtual Env
+venv/

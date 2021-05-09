@@ -17,4 +17,4 @@ class Pokemon(models.Model):
 
 class PokemonImageSearch(models.Model):
     url = models.CharField(max_length=255)
-    result = models.IntegerField()
+    result = models.IntegerField(null=True)

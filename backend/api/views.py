@@ -5,12 +5,14 @@ from .serializers import PokemonSerializer, PokemonImageSearchSerializer
 from .models import Pokemon, PokemonImageSearch
 from .classifier.model import Model
 
+
 class PokemonList(APIView):
     def get(self, request):
         pokemons = Pokemon.objects.all()
         query = self.request.GET.get('search')
         if query is not None:
-            pokemons = pokemons.filter(name__contains=query) | pokemons.filter(type1__contains=query) | pokemons.filter(type2__contains=query)
+            pokemons = pokemons.filter(name__contains=query) | pokemons.filter(
+                type1__contains=query) | pokemons.filter(type2__contains=query)
         serializer = PokemonSerializer(pokemons, many=True)
         return Response(serializer.data)
 
@@ -23,11 +25,11 @@ class PokemonList(APIView):
             url = serializer.data.get("url")
             m = Model(url)
             m.load_img(url)
-            p = PokemonImageSearch(url=url, result="a")
+            estimated_pokemon = m.execute()
+            p = PokemonImageSearch(url=url, result=estimated_pokemon)
             p.save()
-            print(p)
-            pokemons = Pokemon.objects.raw('SELECT * FROM api_pokemon ORDER BY name LIMIT 1 OFFSET %s', [str(m.execute())])
+            pokemons = Pokemon.objects.raw(
+                'SELECT * FROM api_pokemon ORDER BY name LIMIT 1 OFFSET %s', [str(estimated_pokemon)])
             serializer = PokemonSerializer(pokemons, many=True)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
-    

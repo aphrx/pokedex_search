@@ -69,38 +69,39 @@ function percent(num){
   return (
     <Card className={classes.root} style={{backgroundColor:colors[pokemon.type1]}}>
       <CardContent>
-        <Grid container justify = "center">
-          <Grid item xs={12} md={4}>
+        <Grid container>
+          <Grid item xs={12} md={12}>
             <PokemonName>
               {pokemon.name}
             </PokemonName>
-            <Typography className={classes.pos} color="textSecondary">
+
+            <Grid container>
+              <Grid item xs={12} md={4}>
+              <Typography className={classes.pos} color="textSecondary">
                 {(pokemon.type2 != null) ? pokemon.type1 + "/" + pokemon.type2 : pokemon.type1}
             </Typography>
-            <PokemonDesc >
-                {pokemon.desc}
-            </PokemonDesc>
-            
-          </Grid>
-          <Grid xs={12} md={4}>
-          <Box
-        display="column"
-        alignItems="center"
-        flexDirection="column"
-         style={{backgroundColor: 'blue',height:'100%', }}>
-            <Progress skill={"HP"} dur={pokemon.hp} percent={percent(pokemon.hp) + '%'}/>
-            <Progress skill={"ATK"} dur={pokemon.atk} percent={percent(pokemon.atk) + '%'}/>
-            <Progress skill={"DEF"} dur={pokemon.df} percent={percent(pokemon.df) + '%'}/>
-            <Progress skill={"SPA"} dur={pokemon.spa} percent={percent(pokemon.spa) + '%'}/>
-            <Progress skill={"SPD"} dur={pokemon.spd} percent={percent(pokemon.spd) + '%'}/>
-            <Progress skill={"SPE"} dur={pokemon.spe} percent={percent(pokemon.spe) + '%'}/>
-          </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
+                <PokemonDesc >
+                    {pokemon.desc}
+                </PokemonDesc>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <center >
+                  <Progress skill={"HP"} dur={pokemon.hp} percent={percent(pokemon.hp) + '%'}/>
+                  <Progress skill={"ATK"} dur={pokemon.atk} percent={percent(pokemon.atk) + '%'}/>
+                  <Progress skill={"DEF"} dur={pokemon.df} percent={percent(pokemon.df) + '%'}/>
+                  <Progress skill={"SPA"} dur={pokemon.spa} percent={percent(pokemon.spa) + '%'}/>
+                  <Progress skill={"SPD"} dur={pokemon.spd} percent={percent(pokemon.spd) + '%'}/>
+                  <Progress skill={"SPE"} dur={pokemon.spe} percent={percent(pokemon.spe) + '%'}/>
+                </center>
+              </Grid>
+              <Grid item xs={12} md={4}>
             <center>
               <img height={250} src={image}/>
             </center>
-          </Grid>    
+          </Grid>   
+            </Grid>
+          </Grid>
+ 
         </Grid>
       </CardContent>
     </Card>

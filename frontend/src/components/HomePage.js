@@ -58,8 +58,9 @@ export default function HomePage() {
           fetch('http://127.0.0.1:8000/api/pokemon/', requestOptions)
               .then(response => response.json())
               .then(data => {
-                  console.log(data[0]['name'])
-                  fetchData(data[0]['name'])
+                  if(data.length > 0){
+                    fetchData(data[0]['name'])
+                  }              
                 });
           })}) 
       }

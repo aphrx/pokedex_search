@@ -14,9 +14,10 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
     
     def test_pokemon_list_POST(self):
+        self.setup()
         test_url = 'https://firebasestorage.googleapis.com/v0/b/pokedex-b8e96.appspot.com/o/Squirtle2.jpg?alt=media&token=de32d254-9f10-4cea-8af1-c5f84f73c2d3'
         response = self.client.post(self.pokemon_url, {
-            'url': test_url
+            'url': test_url,
         })
 
         self.assertEquals(response.status_code, 201)

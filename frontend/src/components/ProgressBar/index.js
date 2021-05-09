@@ -7,13 +7,12 @@ export default function Progress({skill, dur, percent}) {
             <ProgressContainer percent={percent}>
                 <ProgressStats>
                     <ProgressName>{skill}</ProgressName>
-                    <ProgressMoved percent={percent}>
+                    <ProgressDir>{dur}</ProgressDir>
+                </ProgressStats>
+                <ProgressMoved percent={percent}>
                     <ProgressBar></ProgressBar>
                     <ProgressLoader></ProgressLoader>
                 </ProgressMoved>
-                    <ProgressDir>{dur}</ProgressDir>
-                </ProgressStats>
-                
             </ProgressContainer>
         </>
     )

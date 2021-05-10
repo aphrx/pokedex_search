@@ -26,13 +26,12 @@ function percent(num){
       <CardContent>
         <Grid container>
           <Grid item xs={12} md={9}>
-            <PokemonName>
-              {pokemon.name}
-            </PokemonName>
-
             <Grid container>
               <Grid item xs={12} md={6}>
-              <PokemonType>
+              <PokemonName>
+              {pokemon.name}
+            </PokemonName>
+            <PokemonType>
                   {(pokemon.type2 != null) ? pokemon.type1 + "/" + pokemon.type2 : pokemon.type1}
               </PokemonType>
               <br/>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PokemonCard from '../components/Cards/PokemonCard.js/index.js';
+import PokemonCard from './Cards/PokemonCard.js';
 import Grid from '@material-ui/core/Grid';
-import SearchBar from '../components/SearchBar';
+import Searchbar from './SearchBar';
 import { storage } from '../firebase/config';
 import Pagination from '@material-ui/lab/Pagination';
-import Hero from '../components/Cards/HeroCard';
+import Hero from './Cards/HeroCard';
 
 function slice(arr) {
     const newArr = [];
@@ -70,14 +70,15 @@ export default function HomePage() {
             <Grid container>
                 <Grid item xs={12} md={12}>
                     <center>
-                        <Se archBar handleChange={handleChange} handleSearchChange={handleSearchChange}/>
+                        <Searchbar handleChange={handleChange} handleSearchChange={handleSearchChange}/>
                     </center>
                 </Grid>
                 {hero != null ? (
-                    <Grid item xs={12}>
-                        <Hero pokemon={hero} />
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Hero pokemon={hero} />
+                        </Grid>
                 ):<></>}
+                
                 {
                     pokemon[page-1].map(pokemon => (
                         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -85,10 +86,14 @@ export default function HomePage() {
                         </Grid>
                     ))
                 }
+                
+                
+                
                 <Grid item xs={12} container justify = "center">
                     <Pagination count={pokemon.length} page={page} onChange={handleChangePage} color="secondary" style={{margin: 20}}/>
                 </Grid>
             </Grid>
+
         </div>
     )
 }

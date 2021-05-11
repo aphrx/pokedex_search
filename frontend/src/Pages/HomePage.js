@@ -70,7 +70,7 @@ export default function HomePage() {
             <Grid container>
                 <Grid item xs={12} md={12}>
                     <center>
-                        <Se archBar handleChange={handleChange} handleSearchChange={handleSearchChange}/>
+                        <SearchBar handleChange={handleChange} handleSearchChange={handleSearchChange}/>
                     </center>
                 </Grid>
                 {hero != null ? (

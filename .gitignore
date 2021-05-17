@@ -123,3 +123,6 @@ data/
 
 # Virtual Env
 venv/
+
+# Firebase
+firebase/
